@@ -1,0 +1,123 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Form API Documentation",
+        "contact": {
+            "email": "isaquechaves10500@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "decription:": "localhost"
+        }
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "summary": "Create a new user",
+                "description": "Route responsible for creating a new user",
+                "tags": [
+                    "User"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "User": {
+                                    "value": {
+                                        "name": "Luke Skywalker",
+                                        "email": "luke@gmail.com",
+                                        "cpf": "42868974123",
+                                        "phone": "19453789531"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Validation error"
+                    },
+                    "201": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/": {
+            "get": {
+                "summary": "Get all the Users",
+                "description": "Route responsible for get all Users",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "No registred users"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "array",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "autoIncrement": true,
+                        "primaryKey": true
+                    },
+                    "name": {
+                        "type": "String",
+                        "allowNull": false
+                    },
+                    "email": {
+                        "type": "String",
+                        "allowNull": false,
+                        "isEmail": true,
+                        "unique": true
+                    },
+                    "cpf": {
+                        "type": "String",
+                        "allowNull": false
+                    },
+                    "phone": {
+                        "type": "String",
+                        "allowNull": false
+                    },
+                    "created_at": {
+                        "type": "Date",
+                        "defaultValue": "Sequelize.NOW"
+                    }
+                }
+            }
+        }
+    }
+}
